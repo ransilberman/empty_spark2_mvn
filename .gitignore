@@ -1,0 +1,18 @@
+# Compiled source #
+###################
+*.class
+
+# Packages #
+############
+*.jar
+*.zip
+
+# Logs  #
+#########
+*.log
+
+# IntelliJ #
+############
+*.iml
+*.ipr
+.idea
