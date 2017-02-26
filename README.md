@@ -16,41 +16,19 @@ It has the following folders:
 
 ## Getting Started
 
-1. Clone the project
+### Clone the project
 ```
 $ git clone https://github.com/ransilberman/empty_spark2_mvn.git
 ```
-2. Build it
+### Build it
 ```
 $ cd empty_spark2_mvn
 $ mvn package
 ```
 
-### Installing
-
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-
-## Authors
+## Author
 
 * **Ran Silberman** - [YourSite](https://ransilberman.com/)
 
-## License
-
-This project is free for everybody
 
 
