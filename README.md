@@ -28,7 +28,7 @@ $ mvn package
 
 ## Author
 
-* **Ran Silberman** - [YourSite](https://ransilberman.com/)
+* **Ran Silberman** - [ransilberman.com](https://ransilberman.com/)
 
 
 
