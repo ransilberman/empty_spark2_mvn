@@ -1,17 +1,29 @@
-# Project Title
+# Empty Spark + Maven project
 
-One Paragraph of project description goes here
+You may use this project as a template to build Spark project using Maven
+
+## Project Structure
+
+This project contains all you need to start from scratch a new Spark project
+It has the following folders:
+
+* **/child/src/main/java** - A Java **HelloWorld** example in Spark
+* **/child/src/main/scala** - A Scala folder with three programs:
+  * **HelloWorldScala.scala** - A Scala **HelloWorld** example in Spark
+  * **HelloWorldSqlScala.scala** - A Scala **HelloWorld** example in SparkSQL
+  * **HelloWorldStreaming.scala** - A Scala **HelloWorld** example in SparkStreaming
+* **/child/src/test/scala** - A Scalatest exaple of testing the code
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
+1. Clone the project
 ```
-Give examples
+$ git clone https://github.com/ransilberman/empty_spark2_mvn.git
+```
+2. Build it
+```
+$ cd empty_spark2_mvn
+$ mvn package
 ```
 
 ### Installing
@@ -32,48 +44,13 @@ until finished
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Maven](https://maven.apache.org/) - Dependency Management
-
 
 ## Authors
 
-* **Your name here** - *Initial work* - [YourSite](https://yoursite.com/)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Ran Silberman** - [YourSite](https://ransilberman.com/)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is free for everybody
 
-## Acknowledgments
-
-* Anyone who's code was used
-* Inspiration
-* etc
 
