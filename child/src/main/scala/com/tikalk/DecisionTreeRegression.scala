@@ -3,18 +3,17 @@ package com.tikalk
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.feature.VectorIndexer
-import org.apache.spark.ml.regression.DecisionTreeRegressionModel
-import org.apache.spark.ml.regression.DecisionTreeRegressor
+import org.apache.spark.ml.regression.{DecisionTreeRegressionModel, DecisionTreeRegressor, LinearRegression}
 import org.apache.spark.sql.SparkSession
 
-/**
-  * Created by yaniv on 27/02/2017.
-  */
-object DecisionTree {
+
+object DecisionTreeRegression {
 
   def dorun(spark: SparkSession, logfile: String): Unit = {
+
+
     // Load the data stored in LIBSVM format as a DataFrame.
-    val data = spark.read.format("libsvm").load("train2.txt")
+    val data = spark.read.format("libsvm").load(logfile)
 
     // Automatically identify categorical features, and index them.
     // Here, we treat features with > 4 distinct values as continuous.
@@ -64,7 +63,8 @@ object DecisionTree {
       .appName("SQL count")
       .getOrCreate()
 
-    dorun(spark, "train2.csv")
+    dorun(spark, "train2.txt")
     spark.stop()
   }
+
 }

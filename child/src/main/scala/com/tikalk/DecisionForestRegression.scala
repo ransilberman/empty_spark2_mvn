@@ -9,7 +9,7 @@ import org.apache.spark.sql.SparkSession
 /**
   * Created by yaniv on 27/02/2017.
   */
-object DecisionForest {
+object DecisionForestRegression {
 
   def dorun(spark: SparkSession, logfile: String): Unit = {
     // Load and parse the data file, converting it to a DataFrame.
