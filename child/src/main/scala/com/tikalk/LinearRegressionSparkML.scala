@@ -15,9 +15,6 @@ object LinearRegressionSparkML {
 
     val lr = new LinearRegression()
       .setMaxIter(100)
-    //reduce over-fitting by setting regularization parameter higher than 0.0:
-    //      .setRegParam(0.3)
-//      .setElasticNetParam(0.8)
 
     // Fit the model
     val lrModel = lr.fit(training)
@@ -31,7 +28,7 @@ object LinearRegressionSparkML {
     trainingSummary.residuals.show()
     println(s"numIterations: ${trainingSummary.totalIterations}")
     println(s"objectiveHistory: [${trainingSummary.objectiveHistory.mkString(",")}]")
-    println(s"RMSE: ${trainingSummary.rootMeanSquaredError}")
+    println(s"RMSE: ${lrModel.summary.rootMeanSquaredError}")
     println(s"r2: ${trainingSummary.r2}")
   }
 
