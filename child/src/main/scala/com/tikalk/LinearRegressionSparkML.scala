@@ -6,15 +6,16 @@ import org.apache.spark.ml.regression.LinearRegression
 
 object LinearRegressionSparkML {
 
-  def dorun(spark: SparkSession, logfile: String): Unit = {
+  def dorun(spark: SparkSession, housePricesFile: String): Unit = {
 
 
     val training = spark.read.format("libsvm")
-      .load(logfile)
+      .load(housePricesFile)
 
 
     val lr = new LinearRegression()
       .setMaxIter(10)
+      //reduce over-fitting by setting regularization parameter higher than 0.0:
       .setRegParam(0.3)
       .setElasticNetParam(0.8)
 
