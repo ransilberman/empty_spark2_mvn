@@ -11,7 +11,6 @@ object DecisionTreeRegression {
 
   def dorun(spark: SparkSession, logfile: String): Unit = {
 
-
     // Load the data stored in LIBSVM format as a DataFrame.
     val data = spark.read.format("libsvm").load(logfile)
 
@@ -37,9 +36,11 @@ object DecisionTreeRegression {
 
     // Train model. This also runs the indexer.
     val model = pipeline.fit(trainingData)
+//    val model = pipeline.fit(data)
 
     // Make predictions.
     val predictions = model.transform(testData)
+//    val predictions = model.transform(data)
 
     // Select example rows to display.
     predictions.select("prediction", "label", "features").show(5)
@@ -63,7 +64,8 @@ object DecisionTreeRegression {
       .appName("SQL count")
       .getOrCreate()
 
-    dorun(spark, "train2.txt")
+    dorun(spark, "train2.txt") //good correlation 10 features
+//        dorun(spark, "train3.txt") //bad correlation 10 features
     spark.stop()
   }
 

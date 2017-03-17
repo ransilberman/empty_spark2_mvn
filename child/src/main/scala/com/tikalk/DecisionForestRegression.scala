@@ -6,14 +6,13 @@ import org.apache.spark.ml.feature.VectorIndexer
 import org.apache.spark.ml.regression.{DecisionTreeRegressionModel, DecisionTreeRegressor, RandomForestRegressionModel, RandomForestRegressor}
 import org.apache.spark.sql.SparkSession
 
-/**
-  * Created by yaniv on 27/02/2017.
-  */
+
 object DecisionForestRegression {
 
   def dorun(spark: SparkSession, logfile: String): Unit = {
+
     // Load and parse the data file, converting it to a DataFrame.
-    val data = spark.read.format("libsvm").load("train2.txt")
+    val data = spark.read.format("libsvm").load(logfile)
 
     // Automatically identify categorical features, and index them.
     // Set maxCategories so features with > 4 distinct values are treated as continuous.
@@ -37,9 +36,11 @@ object DecisionForestRegression {
 
     // Train model. This also runs the indexer.
     val model = pipeline.fit(trainingData)
+//    val model = pipeline.fit(data)
 
     // Make predictions.
     val predictions = model.transform(testData)
+//    val predictions = model.transform(data)
 
     // Select example rows to display.
     predictions.select("prediction", "label", "features").show(5)
@@ -63,7 +64,8 @@ object DecisionForestRegression {
       .appName("SQL count")
       .getOrCreate()
 
-    dorun(spark, "train2.txt")
+    dorun(spark, "train2.txt") //good correlation 10 features
+//    dorun(spark, "train3.txt") //bad correlation 10 features
     spark.stop()
   }
 }
