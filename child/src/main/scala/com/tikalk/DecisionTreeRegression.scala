@@ -48,7 +48,7 @@ object DecisionTreeRegression {
       .setLabelCol("label")
       .setPredictionCol("prediction")
       .setMetricName("rmse")
-    val rmse = evaluator.evaluate(predictions)
+    val rmse = evaluator.evaluate(model.transform(trainingData))
     println("Root Mean Squared Error (RMSE) on test data = " + rmse)
 
     val treeModel = model.stages(1).asInstanceOf[DecisionTreeRegressionModel]
