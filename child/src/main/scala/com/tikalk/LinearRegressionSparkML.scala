@@ -14,10 +14,13 @@ object LinearRegressionSparkML {
 
 
     val lr = new LinearRegression()
-      .setMaxIter(100)
+      .setMaxIter(10)
+      .setRegParam(0.3)
+      .setElasticNetParam(0.8)
 
     // Fit the model
     val lrModel = lr.fit(training)
+    lrModel.transform(training).show
 
     // Print the coefficients and intercept for linear regression
     println(s"Coefficients: ${lrModel.coefficients} Intercept: ${lrModel.intercept}")
@@ -25,11 +28,9 @@ object LinearRegressionSparkML {
 
     // Summarize the model over the training set and print out some metrics
     val trainingSummary = lrModel.summary
-    trainingSummary.residuals.show()
     println(s"numIterations: ${trainingSummary.totalIterations}")
     println(s"objectiveHistory: [${trainingSummary.objectiveHistory.mkString(",")}]")
     println(s"RMSE: ${lrModel.summary.rootMeanSquaredError}")
-    println(s"r2: ${trainingSummary.r2}")
   }
 
   def main(args: Array[String]) {

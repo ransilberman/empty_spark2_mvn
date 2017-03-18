@@ -30,6 +30,8 @@ object DecisionTreeRegression {
       .setLabelCol("label")
       .setFeaturesCol("indexedFeatures")
 
+    println("explain params: ", dt.explainParams())
+
     // Chain indexer and tree in a Pipeline.
     val pipeline = new Pipeline()
       .setStages(Array(featureIndexer, dt))
