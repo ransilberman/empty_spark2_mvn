@@ -9,10 +9,11 @@ import org.apache.spark.sql.SparkSession
 
 object DecisionForestRegression {
 
-  def dorun(spark: SparkSession, logfile: String): Unit = {
+  def dorun(spark: SparkSession, trainingFile: String, testFile: String): Unit = {
 
     // Load and parse the data file, converting it to a DataFrame.
-    val data = spark.read.format("libsvm").load(logfile)
+    val trainingData = spark.read.format("libsvm").load(trainingFile)
+    val testData = spark.read.format("libsvm").load(testFile)
 
     // Automatically identify categorical features, and index them.
     // Set maxCategories so features with > 4 distinct values are treated as continuous.
@@ -20,15 +21,15 @@ object DecisionForestRegression {
       .setInputCol("features")
       .setOutputCol("indexedFeatures")
       .setMaxCategories(4)
-      .fit(data)
-
-    // Split the data into training and test sets (30% held out for testing).
-    val Array(trainingData, testData) = data.randomSplit(Array(0.7, 0.3))
+      .fit(trainingData)
 
     // Train a RandomForest model.
     val rf = new RandomForestRegressor()
       .setLabelCol("label")
       .setFeaturesCol("indexedFeatures")
+//      .setMaxDepth(3)
+
+    println("explain params: ", rf.explainParams())
 
     // Chain indexer and forest in a Pipeline.
     val pipeline = new Pipeline()
@@ -36,11 +37,9 @@ object DecisionForestRegression {
 
     // Train model. This also runs the indexer.
     val model = pipeline.fit(trainingData)
-//    val model = pipeline.fit(data)
 
     // Make predictions.
     val predictions = model.transform(testData)
-//    val predictions = model.transform(data)
 
     // Select example rows to display.
     predictions.select("prediction", "label", "features").show(5)
@@ -64,8 +63,9 @@ object DecisionForestRegression {
       .appName("SQL count")
       .getOrCreate()
 
-    dorun(spark, "train2.txt") //good correlation 10 features
-//    dorun(spark, "train3.txt") //bad correlation 10 features
+    dorun(spark, "train2.txt", "test2.txt") //good correlation 10 features
+//    dorun(spark, "train3.txt", "test3.txt") //bad correlation 10 features
     spark.stop()
   }
+
 }

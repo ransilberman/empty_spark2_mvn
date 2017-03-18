@@ -6,11 +6,11 @@ import org.apache.spark.ml.regression.LinearRegression
 
 object LinearRegressionSparkML {
 
-  def dorun(spark: SparkSession, housePricesFile: String): Unit = {
+  def dorun(spark: SparkSession, trainingFile: String, testFile: String): Unit = {
 
 
-    val training = spark.read.format("libsvm")
-      .load(housePricesFile)
+    val training = spark.read.format("libsvm").load(trainingFile)
+    val test = spark.read.format("libsvm").load(testFile)
 
 
     val lr = new LinearRegression()
@@ -20,7 +20,7 @@ object LinearRegressionSparkML {
 
     // Fit the model
     val lrModel = lr.fit(training)
-    lrModel.transform(training).show
+    lrModel.transform(test).show
 
     // Print the coefficients and intercept for linear regression
     println(s"Coefficients: ${lrModel.coefficients} Intercept: ${lrModel.intercept}")
@@ -40,8 +40,8 @@ object LinearRegressionSparkML {
       .appName("SQL count")
       .getOrCreate()
 
-    dorun(spark, "train2.txt") //good correlation 10 features
-//    dorun(spark, "train3.txt") //bad correlation 10 features
+    dorun(spark, "train2.txt", "test2.txt") //good correlation 10 features
+//    dorun(spark, "train3.txt", "test3.txt") //bad correlation 10 features
     spark.stop()
   }
 

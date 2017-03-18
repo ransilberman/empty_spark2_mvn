@@ -9,26 +9,24 @@ import org.apache.spark.sql.SparkSession
 
 object DecisionTreeRegression {
 
-  def dorun(spark: SparkSession, logfile: String): Unit = {
+  def dorun(spark: SparkSession, trainingFile: String, testFile: String): Unit = {
 
     // Load the data stored in LIBSVM format as a DataFrame.
-    val data = spark.read.format("libsvm").load(logfile)
+    val trainingData = spark.read.format("libsvm").load(trainingFile)
+    val testData = spark.read.format("libsvm").load(testFile)
 
     // Automatically identify categorical features, and index them.
     // Here, we treat features with > 4 distinct values as continuous.
     val featureIndexer = new VectorIndexer()
       .setInputCol("features")
       .setOutputCol("indexedFeatures")
-      .setMaxCategories(4)
-      .fit(data)
-
-    // Split the data into training and test sets (30% held out for testing).
-    val Array(trainingData, testData) = data.randomSplit(Array(0.7, 0.3))
+      .fit(trainingData)
 
     // Train a DecisionTree model.
     val dt = new DecisionTreeRegressor()
       .setLabelCol("label")
       .setFeaturesCol("indexedFeatures")
+//      .setMaxDepth(3)
 
     println("explain params: ", dt.explainParams())
 
@@ -38,11 +36,9 @@ object DecisionTreeRegression {
 
     // Train model. This also runs the indexer.
     val model = pipeline.fit(trainingData)
-//    val model = pipeline.fit(data)
 
     // Make predictions.
     val predictions = model.transform(testData)
-//    val predictions = model.transform(data)
 
     // Select example rows to display.
     predictions.select("prediction", "label", "features").show(5)
@@ -66,8 +62,8 @@ object DecisionTreeRegression {
       .appName("SQL count")
       .getOrCreate()
 
-    dorun(spark, "train2.txt") //good correlation 10 features
-//        dorun(spark, "train3.txt") //bad correlation 10 features
+    dorun(spark, "train2.txt", "test2.txt") //good correlation 10 features
+//        dorun(spark, "train3.txt", "test3.txt") //bad correlation 10 features
     spark.stop()
   }
 
