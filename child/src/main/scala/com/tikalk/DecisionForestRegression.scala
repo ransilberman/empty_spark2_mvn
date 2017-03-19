@@ -28,6 +28,7 @@ object DecisionForestRegression {
       .setLabelCol("label")
       .setFeaturesCol("indexedFeatures")
 //      .setMaxDepth(3)
+//      .setNumTrees(1)
 
     println("explain params: ", rf.explainParams())
 
