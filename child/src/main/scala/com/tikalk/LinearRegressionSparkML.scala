@@ -14,7 +14,7 @@ object LinearRegressionSparkML {
 
 
     val lr = new LinearRegression()
-      .setMaxIter(10)
+      .setMaxIter(50)
       .setRegParam(0.3)
       .setElasticNetParam(0.8)
 
@@ -40,8 +40,8 @@ object LinearRegressionSparkML {
       .appName("SQL count")
       .getOrCreate()
 
-    dorun(spark, "train2.txt", "test2.txt") //good correlation 10 features
-//    dorun(spark, "train3.txt", "test3.txt") //bad correlation 10 features
+    dorun(spark, "training10features.txt", "test10features.txt") //good correlation 10 features
+//    dorun(spark, "training10features2.txt", "test10features2.txt") //bad correlation 10 features
     spark.stop()
   }
 
