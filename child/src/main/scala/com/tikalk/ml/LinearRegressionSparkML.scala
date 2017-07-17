@@ -1,7 +1,7 @@
-package com.tikalk
+package com.tikalk.ml
 
-import org.apache.spark.sql.{Dataset, Row, SparkSession}
 import org.apache.spark.ml.regression.LinearRegression
+import org.apache.spark.sql.SparkSession
 
 
 object LinearRegressionSparkML {

@@ -1,4 +1,4 @@
-package com.tikalk
+package com.tikalk.ml
 
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.regression.DecisionTreeRegressor

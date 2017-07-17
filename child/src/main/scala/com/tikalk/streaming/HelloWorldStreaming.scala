@@ -1,4 +1,4 @@
-package com.tikalk
+package com.tikalk.streaming
 
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Seconds, StreamingContext}

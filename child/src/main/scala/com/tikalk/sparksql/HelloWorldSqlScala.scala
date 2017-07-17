@@ -1,7 +1,6 @@
-package com.tikalk
+package com.tikalk.sparksql
 
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
-import org.apache.spark.{SparkConf, SparkContext}
 
 object HelloWorldSqlScala {
 

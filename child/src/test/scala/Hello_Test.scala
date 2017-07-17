@@ -2,6 +2,7 @@ package com.tikalk
 
 import java.io.File
 
+import com.tikalk.sparksql.HelloWorldSqlScala
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
